@@ -1,0 +1,39 @@
+<%- include("partials/header.ejs") %>
+<body>
+    <%- include("partials/homenavbar.ejs") %>
+    <br>
+    <div class="container">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title title is-3"><%= place.title %></p>
+            </header>
+            <div class="columns">
+                <div class="column">
+                    <div class="place-image">
+                        <figure class="image is-4by3">
+                            <img src="../uploads/resized/places/<%= place.image %>" alt="Placeholder image">
+                        </figure>
+                    </div>
+                </div>
+                <div class="column">
+                    <br>
+                    <p class="title is-5">Descrição</p>
+                    <div style="display: inline;">
+                        <%- place.description %>
+                    </div>
+                    <div>
+                        <label class="label" id="place-label">Endereço:</label>
+                        <%- place.address %>
+                    </div>
+                    <div>
+                        <label class="label" id="place-label">Telefone:</label>
+                        <%- place.phone %>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

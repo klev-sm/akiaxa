@@ -1,0 +1,26 @@
+<%- include("../../adminPartials/adminHeader.ejs") %>
+<body>
+    <%- include("../../adminPartials/navbar.ejs") %>
+    <br>
+    <div class="container">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title title is-3">Criar Novo Usuário</p>
+            </header>
+            <div class="card-content">
+                <form method="post" action="/users/new">
+                    <div class="field">
+                        <label class="label">Email de usuário</label>
+                        <input class="input" type="email" placeholder="Digite seu email" name="email">
+                    </div>
+                    <div class="field">
+                        <label class="label">Senha de usuário</label>
+                        <input class="input" type="password" placeholder="Digite sua senha" name="pass">
+                    </div>
+                    <button class="button is-link is-fullwidth">Criar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

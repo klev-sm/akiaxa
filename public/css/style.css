@@ -1,0 +1,13 @@
+#place-label {
+    display: inline;
+}
+
+.place-image {
+    display: block;
+    position: relative;
+    border-radius: 0;
+}
+
+small {
+    color: #d63031;
+}

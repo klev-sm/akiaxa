@@ -1,0 +1,55 @@
+<%- include("../../adminPartials/adminHeader.ejs") %>
+<body> 
+    <%- include("../../adminPartials/navbar.ejs") %>
+    <br>
+    <div class="container">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title title is-3">Criar Categoria</p>
+            </header>
+            <div class="card-content">
+                <form method="post" action="/categories/create" enctype="application/x-www-form-urlencoded">
+                    <div class="field">
+                        <label class="label">Nome da Categoria</label>
+                        <input class="input" type="text" placeholder="Digite o nome da categoria." name="title">
+                    </div>
+                    <div class="field">
+                        <label class="label">Imagem da Categoria</label>
+                        <div class="file has-name is-fullwidth">
+                            <label class="file-label">
+                              <input class="file-input" type="file" name="image">
+                              <span class="file-cta">
+                                <span class="file-icon">
+                                  <i class="fas fa-upload"></i>
+                                </span>
+                                <span class="file-label">
+                                    Selecione um Arquivo...
+                                </span>
+                              </span>
+                              <span class="file-name">
+                                    Nenhum Arquivo Selecionado.
+                              </span>
+                            </label>
+                          </div>
+                    </div>
+                    <button class="button is-link is-fullwidth">Criar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const image = document.getElementsByName("image")[0]
+        let fileName = document.getElementsByClassName("file-name")[0]
+        image.addEventListener("change", () => {
+            if(image.files.length > 0) {
+                fileName.innerText = image.files[0].name
+            } else {
+                fileName.innerText = "Nenhum Arquivo Selecionado."
+            }
+        })
+    })
+</script>
+<%- include("../../partials/footer.ejs") %>
+</html>

@@ -1,0 +1,167 @@
+<%- include("../../adminPartials/adminHeader.ejs") %>
+<body> 
+    <%- include("../../adminPartials/navbar.ejs") %>
+    <br>
+    <div class="container">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title title is-3">Criar Estabelecimento</p>
+            </header>
+            <div class="card-content">
+                <form id="form" method="post" action="/places/create" enctype="multipart/form-data">
+                    <div class="field" id="nameField">
+                        <label class="label">Nome do Estabelecimento</label>
+                        <input class="input" type="text" placeholder="Digite o nome do estabelecimento." name="title" id="nome">
+                        <small style="visibility: hidden;">Mensagem de Erro</small>
+                    </div>
+                    <div class="field">
+                        <label class="label">Imagem do Estabelecimento</label>
+                        <div class="file has-name is-fullwidth" id="fileImage">
+                            <label class="file-label">
+                                <input class="file-input" type="file" name="image" id="imagem">
+                                <span class="file-cta">
+                                <span class="file-icon">
+                                    <i class="fas fa-upload"></i>
+                                </span>
+                                <span class="file-label">
+                                    Selecione um Arquivo...
+                                </span>
+                                </span>
+                                <span class="file-name">
+                                    Nenhum Arquivo Selecionado.
+                                </span>
+                            </label>
+                        </div>
+                        <small id="smallImage" style="visibility: hidden;">Mensagem de Erro</small>  
+                    </div>
+                    <div class="field">
+                        <label class="label">Descrição do Estabelecimento</label>
+                        <textarea class="textarea" placeholder="Digite a descrição do estabelecimento." name="description" id="descrição"></textarea>
+                        <small style="visibility: hidden;">Mensagem de Erro</small>  
+                    </div>
+                    <div class="field">
+                        <label class="label">Endereço do Estabelecimento</label>
+                        <input class="input" type="text" id="endereço" placeholder="Digite o endereço do estabelecimento." name="address">
+                        <small style="visibility: hidden;">Mensagem de Erro</small>  
+                    </div>
+                    <div class="field">
+                        <label class="label">Contato do Estabelecimento</label>
+                        <input class="input" type="text" id="contato" placeholder="Digite o número de contato do estabelecimento." name="phone">
+                        <small style="visibility: hidden;">Mensagem de Erro</small>  
+                    </div>
+                    <div class="field">
+                        <label class="label">Tipo de Estabelecimento</label>
+                        <div class="select">
+                            <select name="categorieId" id="categoria">
+                                <option value="0">Sem Categoria</option>
+                                <% categories.forEach((categorie) => { %>
+                                    <option value="<%= categorie.id %>"><%= categorie.title %></option>
+                                <% }) %>
+                            </select>
+                            <small style="visibility: hidden;">Mensagem de Erro</small>  
+                        </div>
+                    </div>
+                    <br>
+                    <button class="button is-link is-fullwidth">Criar</button>
+                </form>
+            </div>
+        </div>
+        <br>
+    </div>
+</body>
+<script type="application/javascript" src= "/tinymce/tinymce.min.js"></script>
+<script>
+    // image validator
+    document.addEventListener("DOMContentLoaded", function() {
+        const image = document.getElementsByName("image")[0]
+        let fileName = document.getElementsByClassName("file-name")[0]
+        image.addEventListener("change", () => {
+            if(image.files.length > 0) {
+                fileName.innerText = image.files[0].name
+            } else {
+                fileName.innerText = "Nenhum Arquivo Selecionado."
+            }
+        })
+    })
+
+    // form validator
+    const form = document.getElementById("form")
+    const name = document.getElementById("nome")
+    const image = document.getElementById("imagem")
+    const desc = document.getElementById("descrição")
+    const address = document.getElementById("endereço")
+    const phone = document.getElementById("contato")
+    const categorie = document.getElementById("categoria")
+
+    function showError(input, message) {
+        if(input == desc) {
+            input.className = "textarea is-danger"
+        } else {
+            input.className = "input is-danger"
+        }
+        const select = input.parentElement
+        const small = select.querySelector("small")
+        small.innerText = message
+        small.style.visibility = "visible"
+    }
+
+    function showSuccess(input) {
+        if(input == desc) {
+            input.className = "textarea is-success"
+        } else {
+            input.className = "input is-success"
+        }
+        const select = input.parentElement
+        const small = select.querySelector("small")
+        small.style.visibility = "hidden"
+    }
+
+    function checkRequired(inputArr) {
+        inputArr.forEach((input) => {
+            // checking if input is categorie to change the value of condition.
+            if(input == categorie) {
+                if(input.value == 0) {
+                    showError(input, `O campo ${input.id} não pode ser vazio.`)
+                } else {
+                    showSuccess(input)
+                }
+            } else {
+                if(input.value === "") {
+                    showError(input, `O campo ${input.id} não pode ser vazio.`)
+                } else {
+                    showSuccess(input)
+                }
+            }
+        })
+    }
+
+    function checkImage(image) {
+        if(image.files.length == 0) {
+            let div = document.querySelector("#fileImage")
+            div.className = "file is-danger has-name is-fullwidth" 
+            let small = document.querySelector("#smallImage")
+            small.innerText = "Você deve selecionar alguma imagem."
+            small.style.visibility = "visible"
+        } else {
+            let div = document.querySelector("#fileImage")
+            div.className = "file is-success has-name is-fullwidth" 
+            let small = document.querySelector("#smallImage")
+            small.style.visibility = "hidden"
+        } 
+    }
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault()
+
+        checkRequired([name, desc, address, phone, categorie])
+        checkImage(image)
+        if(name.value !== "" && desc.value !== "" && address.value !== "" && phone.value !== "" && categorie != 0 && image.files.length != 0) {
+            form.submit()
+        }
+
+
+    })
+
+</script>
+<%- include("../../partials/footer.ejs") %>
+</html>

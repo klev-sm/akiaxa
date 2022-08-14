@@ -1,0 +1,54 @@
+<%- include("../../adminPartials/adminHeader.ejs") %>
+<body> 
+    <%- include("../../adminPartials/navbar.ejs") %>
+    <div class="container">
+        <br>
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title title is-3">Categorias</p>
+            </header>
+        </div>
+        <br>
+        <div class="card-body">
+            <a href="/admin/categories/new" class="button is-link">Criar Nova</a>
+        </div>
+        <hr>
+        <table class="table is-bordered is-fullwidth">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Imagem</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% categories.forEach((categorie) => { %>
+                    <tr>
+                        <td><%= categorie.id %></td>
+                        <td><%= categorie.title %></td>
+                        <td><%= categorie.image %></td>
+                        <td>
+                            <form action="/deleteCategorie" method="post" style="display: inline;" onsubmit="confirmDelete(event, this)">
+                                <input type="hidden" value="<%= categorie.id %>" name="id">
+                                <button type="submit" class="button is-danger">Excluir</button>
+                            </form>
+                            <a class="button is-warning" href="/admin/categories/edit/<%= categorie.id %>">Editar</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    function confirmDelete(e, form) {
+        e.preventDefault()
+        let c = confirm("Você tem certeza que deseja apagar esta categoria? ")
+        if(c) {
+            form.submit()
+        }
+    }
+</script>
+
+</html>

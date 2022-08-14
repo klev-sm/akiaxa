@@ -1,0 +1,55 @@
+<%- include("../../adminPartials/adminHeader.ejs") %>
+<body> 
+    <%- include("../../adminPartials/navbar.ejs") %>
+    <div class="container">
+        <br>
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title title is-3">Estabelecimentos</p>
+            </header>
+        </div>
+        <br>
+        <div class="card-body">
+            <a href="/admin/places/new" class="button is-link">Criar Novo</a>
+        </div>
+        <hr>
+        <table class="table is-bordered is-fullwidth">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Imagem</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% places.forEach((place) => { %>
+                    <tr>
+                        <td><%= place.id %></td>
+                        <td><%= place.title %></td>
+                        <td><%= place.address %></td>
+                        <td><%= place.image %></td>
+                        <td>
+                            <form method="post" action="/place/delete" style="display: inline" onsubmit="deletePost(event, this)">
+                                <input type="hidden" value="<%= place.id %>" name="id">
+                                <button class="button is-danger">Excluir</button>
+                            </form>
+                            <a href="/admin/places/edit/<%= place.id %>" class="button is-warning">Editar</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    function deletePost(e, form) {
+        e.preventDefault()
+        let decision = confirm("Você tem certeza que deseja apagar esse estabelecimento?")
+        if(decision) {
+            form.submit()
+        }
+    }
+</script>
+</html>
