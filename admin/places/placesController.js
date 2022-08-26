@@ -13,6 +13,8 @@ const Places = require("./Places")
 const bodyParser = require("body-parser")
 router.use(bodyParser.urlencoded({extended: true}))
 
+const authUser = require("../../middlewares/authenticate")
+
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, "public/uploads/")
@@ -24,7 +26,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage})
 
-router.get("/admin/places", (req, res) => {
+router.get("/admin/places", authUser,(req, res) => {
     
     Places.findAll({
         order: [
@@ -38,7 +40,7 @@ router.get("/admin/places", (req, res) => {
 
 })
 
-router.get("/admin/places/new", (req, res) => {
+router.get("/admin/places/new", authUser,(req, res) => {
 
     Categories.findAll({
         order: [
@@ -52,7 +54,7 @@ router.get("/admin/places/new", (req, res) => {
     
 })
 
-router.get("/admin/places/edit/:id", (req, res) => {
+router.get("/admin/places/edit/:id", authUser,(req, res) => {
     const id = req.params.id
 
     Places.findByPk(id).then((place) => {
@@ -108,7 +110,7 @@ router.post("/place/delete", (req, res) => {
                 id: id
             }
         }).then(() => {
-            fs.unlinkSync(path.resolve(process.cwd(), "uploads", "resized", "places", place.image))
+            fs.unlinkSync(path.resolve(process.cwd(), "public", "uploads", "resized", "places", place.image))
             res.redirect("/admin/places")
         })
     })
@@ -143,8 +145,7 @@ router.post("/places/edit", upload.single("image"), (req, res) => {
                 .toFile(
                     path.resolve(req.file.destination, "resized", "places", req.file.filename)
                 )
-                // delete the saved pic from before
-                fs.unlinkSync(path.resolve(req.file.destination, "uploads", "resized", "places", place.image))
+                fs.unlinkSync(path.resolve(process.cwd(), "public","uploads", "resized", "places", place.image))
                 fs.unlinkSync(req.file.path)
             }
         }

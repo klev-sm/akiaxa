@@ -1,5 +1,82 @@
-<%- include("partials/header.ejs") %>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Akiaxa | Guia de Estabelecimentos</title>
+</head>
 <body>
-    <%- include("partials/homenavbar.ejs") %>
+    <div class="container" style="background-image: url('img/city-wallpaper.jpg');">
+        <div class="overlay">
+            <nav class="header">
+                <img src="img/logo.png" alt="Logo do Site" id="logoImage" width="120px">    
+                <ul>
+                    <li><a href="">Início</a></li>
+                    <li><a href="">Sobre</a></li>
+                    <li><a href="">Contato</a></li>
+                    <a href="/admin"><button id="buttonPanel">Painel Administrativo</button></a>
+                </ul>
+            </nav>
+            <div class="content">
+                <h1 class="title">Encontre o que você quiser.<br>Tudo em um só lugar.</h1>
+                <div class="buttons">
+                    <a href="/places/1"><button id="button">Ver Estabelecimentos</button></a>
+                    <a href="/categories/1"><button id="button">Ver Categorias</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="info">
+            <div class="texts">
+                <h2>Quem Somos Nós?</h2>
+                <h3>Lista de Estabelecimentos da Cidade</h3>
+                <p>Encontre os estabelecimentos de sua cidade que <br>estão registrados em nossa lista.
+                    <br>Está precisando encontrar algum comércio da sua cidade?<br>Pare de perder tempo, vem com a gente!</p>
+                <a href="/categories/1"><button id="listButton">Veja a lista</button></a>
+            </div>
+            <div class="circleImages">
+                <img src="img/circulos.png" alt="Imagem de círculos de estabelecimentos" width="500px">
+            </div>
+        </div>
+        <div class="download">
+            <div class="infos">
+                <h2>Baixe o APP</h2>
+                <h3>Disponível para Android*</h3>
+                <p>Baixe nosso APP e tenha total acesso a todas <br>as funcionalidades que o Akiaxa disponibiliza para você, e o melhor: <br>você não ficará na mão quando estiver sem internet, <br>pois o aplicativo funciona off-line.</p>
+                <img src="img/android.png" alt="Imagem com link disponível para Android" width="100px">
+                <p>* Em breve na App Store!</p>
+            </div>
+            <div class="iphoneImage">
+                <img src="img/iphone-branco.png" alt="Imagem de Iphone com logo Akiaxa." width="200px">
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="column1">
+                <h3>Tem um estabelecimento <br>e quer ser parceiro?</h3>
+                <h4>Registre-se Aqui</h4>
+                <div class="phoneContact">
+                    <img src="img/phone icon.png" alt="">
+                    <h4>+55 (79) 9 9999 - 9999</h4>
+                </div>
+                <div class="emailContact">
+                    <img src="img/envelope icon.png" alt="">
+                    <h4>emailprofissional@gmail.com</h4>
+                </div>
+            </div>
+            <div class="column2">
+                <h3>Serviços ao Cliente</h3>
+                <h4>Termos de Uso</h4>
+                <h4>Política de Privacidade</h4>
+                <h4>Direitos de uso</h4>
+                <h4>Guia de uso da marca</h4>
+            </div>
+            <div class="column3">
+                <img src="img/logo-roxa.png" alt="Logo Akiaxa Roxa" width="120px">
+            </div>
+        </footer>
+    </section>
 </body>
 </html>

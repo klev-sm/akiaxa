@@ -24,10 +24,10 @@
             <% }) %>   
         </div>
         <% if(next) { %>
-            <a style="float: right;" href="/<%= categorie.slug %>/<%= page + 1%>">Próximos >>></a>
+            <a style="float: right;" href="/places/<%= page + 1%>">Próximos >>></a>
         <% } %>
         <% if(page > 1) { %>
-            <a style="float: left;" href="/<%= categorie.slug %>/<%= page - 1%>"><<< Voltar</a>
+            <a style="float: left;" href="/places/<%= page - 1%>"><<< Voltar</a>
         <% } %>
     </div>
 </body>

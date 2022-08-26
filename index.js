@@ -42,7 +42,6 @@ app.get("/", (req, res) => {
     res.render("index")
 })
 
-
 app.get("/categories/:page", (req, res) => {
     const page = req.params.page
     let num = 0
@@ -77,6 +76,41 @@ app.get("/categories/:page", (req, res) => {
 
 })
 
+app.get("/places/:page", (req, res) => {
+    const page = req.params.page
+    let num = 0
+
+    if(page <= 1 || isNaN(page)) {
+        num = 0
+    } else {
+        num = (parseInt(page) - 1) * 4
+    }
+
+    Places.findAndCountAll({
+        order: [
+            ["id", "DESC"]
+        ],
+        limit: 4,
+        offset: num
+    }).then((places) => {
+        let next = false
+
+        if(num + 4 < places.count) {
+            next = true
+        } else {
+            next = false
+        }
+
+        res.render("places", {
+            places: places,
+            next: next,
+            page: parseInt(page)
+        })
+
+    })
+
+})
+
 app.get("/place/:slug", (req, res) => {
     const slug = req.params.slug
 
@@ -85,13 +119,8 @@ app.get("/place/:slug", (req, res) => {
             slug: slug
         }
     }).then(async (place) => {
-        await geo.find(place.address, (err, cb) => {
-            location = cb[0].location
-            res.render("placePage", {
-                place: place,
-                lat: location["lat"],
-                long: location["lng"]
-            })
+        res.render("placePage", {
+            place: place,
         })
     })
 })

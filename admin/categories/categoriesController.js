@@ -109,7 +109,7 @@ router.post("/categorieEdit", upload.single("image"), (req, res) => {
                     path.resolve(req.file.destination, "resized", "categories", req.file.filename)
                 )
     
-                fs.unlinkSync(path.resolve(process.cwd(), "uploads", "resized", "categories", categorie.image))
+                fs.unlinkSync(path.resolve(process.cwd(), "public","uploads", "resized", "categories", categorie.image))
                 fs.unlinkSync(req.file.path)
 
             }
@@ -138,7 +138,7 @@ router.post("/deleteCategorie", (req, res) => {
                 id: id
             }
         }).then(() => {
-            fs.unlinkSync(path.resolve(process.cwd(), "uploads", "resized", "categories", categorie.image))
+            fs.unlinkSync(path.resolve(process.cwd(), "public","uploads", "resized", "categories", categorie.image))
             res.redirect("/admin/categories")
         })
     })

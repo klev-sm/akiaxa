@@ -20,7 +20,7 @@ router.get("/admin/users", authUser, (req, res) => {
 
 })
 
-router.get("/admin/users/create", authUser, (req, res) => {
+router.get("/create", (req, res) => {
     res.render("users/admin/new")
 })
 
@@ -68,6 +68,8 @@ router.post("/users/new", (req, res) => {
     const salt = 10
     const pass = bcrypt.hashSync(password, salt)
 
+    console.log("Tá vindo pra q pelo menjos?")
+
     User.findOne({
         where: {
             email: email
@@ -79,13 +81,10 @@ router.post("/users/new", (req, res) => {
                 password: pass
             }).then(() => {
                 res.redirect("/admin/users")
-                console.log("Bateu aq 1")
             }).catch(() => {
                 res.redirect("/admin/users/create")
-                console.log("Bateu aq 2")
             }) 
         } else {
-            console.log("Bateu aq 3")
             res.redirect("/admin/users/create")
         }
     })
